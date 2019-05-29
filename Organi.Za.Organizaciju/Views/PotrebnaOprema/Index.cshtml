@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Organi.Za.Organizaciju.Data.PotrebnaOprema>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Potrebna oprema za uslugu: &nbsp; <strong>   @ViewData["NazivUsluge"]</strong></h3>
+
+<p>
+    <a asp-route-id="@ViewData["UslugaId"]" asp-action="Create">Dodaj novu opremu</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Usluga)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Oprema)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kolicina)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usluga.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Oprema.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kolicina)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<br/>
+<hr/>
+<a asp-action="Index" asp-controller="Usluge">Nazad na usluge</a> 

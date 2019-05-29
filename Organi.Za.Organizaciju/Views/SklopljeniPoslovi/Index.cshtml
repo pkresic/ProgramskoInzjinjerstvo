@@ -1,0 +1,157 @@
+﻿@model Organi.Za.Organizaciju.ViewModels.PosloviViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Sklopljeni poslovi</h1>
+
+<p>
+    <a asp-action="Create">Sklopi novi posao</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Naziv
+            </th>
+            <th>
+                Opis
+            </th>
+            <th>
+                Usluga / Ponuda
+            </th>
+            <th>
+                Vrijeme Od
+            </th>
+            <th>
+                Vrijeme Do
+            </th>
+            <th>
+                Lokacija
+            </th>
+            <th>
+                Cijena
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Poslovi)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Opis)
+            </td>
+        
+            @{
+                if (item.Usluga != null)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Usluga.Naziv)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ponuda.Naziv)
+                    </td>
+                }
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.VrijemeRadaOd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VrijemeRadaDo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lokacija.LokalniNaziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DogovorenaCijena)
+            </td>
+            <td>
+                <a asp-action="Index" asp-route-id="@item.Id">Pregled  </a>|
+                <a asp-action="Index" asp-controller="OsobeZaPosao" asp-route-id="@item.Id">Dodaj osobe</a>|
+                <a asp-action="Index" asp-controller="DodijeljenaOprema" asp-route-id="@item.Id">Dodaj opremu</a>|
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@if (Model.DodideljenaOprema != null)
+{
+    <br />
+    <br />
+    <hr />
+
+    <h3>Oprema</h3>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Naziv</th>
+            <th>Kolicina</th>
+            <th>Invertarni broj</th>
+        </tr>
+
+        @foreach (var item in Model.DodideljenaOprema)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Naziv
+                </td>
+                <td>
+                    @item.Kolicina
+                </td>
+                <td>
+                    @item.InvertarniBroj
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+@if (Model.DodijeljeneOsobe != null)
+{
+    <br />
+    <br />
+    <hr />
+
+    <h3>Osobe</h3>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Ime </th>
+            <th>Prezime </th>
+        </tr>
+
+        @foreach (var item in Model.DodijeljeneOsobe)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Ime
+                </td>
+                <td>
+                    @item.Prezime
+                </td>
+            </tr>
+        }
+
+    </table>
+}

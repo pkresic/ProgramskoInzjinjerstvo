@@ -1,0 +1,104 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<Organi.Za.Organizaciju.Data.Skladiste>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+<div class="form-group">
+    <form method="get" class="form-inline">
+        <input name="filter" id="search" class="form-control" placeholder="Počnite tipkati" value="@Model.RouteValue["Filter"]" />
+        <button type="submit" style="margin-left: 30px" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+        </button>
+        <a style="margin-left: 30px" asp-action="Print" class="btn btn-success">Generiraj PDF</a>
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Naziv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LokalniNaziv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mjesto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Grad)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LokalniNaziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mjesto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grad)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav aria-label="TipZanimanja">
+    @await Component.InvokeAsync("Pager", new { pagingList = Model })
+</nav>
+
+
+@{
+    var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+}
+
+@section Scripts
+    {
+    <script>
+        $(document).ready(function() {
+            $("#search").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '@Url.Action("Search", @controllerName)',
+                        dataType: "json",
+                        data: { search: $("#search").val() },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item };
+                            }));
+                        },
+                        error: function (xhr, status, error) {
+                            alert("Error");
+                        }
+                    });
+                }
+            });
+        })
+    </script>
+}
+
+

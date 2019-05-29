@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Organi.Za.Organizaciju.Data.DodijeljeneOsobe>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Dodijenje osobe za posao: <strong>@ViewData["NazivPosla"]</strong> </h2>
+
+<p>
+    <a asp-action="Create" asp-route-id="@ViewData["PosaoId"]" >Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Osoba)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Posao)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Osoba.Ime) &nbsp;
+                @Html.DisplayFor(modelItem => item.Osoba.Prezime);
+
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Posao.Naziv)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<hr/>
+<p>
+    <a asp-action="Index" asp-controller="SklopljeniPoslovi">Nazad na poslove</a>
+</p>

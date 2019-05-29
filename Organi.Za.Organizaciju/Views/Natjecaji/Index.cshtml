@@ -1,0 +1,101 @@
+﻿@model Organi.Za.Organizaciju.ViewModels.NatjecajiViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Naziv
+            </th>
+            <th>
+                Tip
+            </th>
+            <th>
+                Vrijedi do
+            </th>
+            <th>
+                Opis
+            </th>
+            <th>
+                Vrijednost natječaja
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Natjecaji)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tip.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VrijediDo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Opis)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VrijednostNatjecaja)
+                </td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.Id">Ponude</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Uredi</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalji</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Izbriši</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.Ponude != null)
+{
+    <br />
+    <br />
+    <hr />
+
+    <h3>Ponude : </h3>
+    <table class="table">
+        <tr>
+            <th>Naziv ponude</th>
+            <th>Naziv usluge</th>
+            <th>Cijena</th>
+            <th>Dodatno</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Ponude)
+        {
+            <tr>
+                <td>
+                    @item.Naziv
+                </td>
+                <td>
+                    @item.Usluga.Naziv
+                </td>
+                <td>
+                    @item.Cijena
+                </td>
+                <td>
+                    @item.DodatnaPoruka
+                </td>
+                <td>
+                    <a asp-action="Create" asp-controller="SklopljeniPoslovi" asp-route-id="@item.Id">Prihvati ponudu</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+}

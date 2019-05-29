@@ -1,0 +1,84 @@
+﻿@model Organi.Za.Organizaciju.Data.Oprema
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Oprema</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Naziv" class="control-label"></label>
+                <input asp-for="Naziv" class="form-control" />
+                <span asp-validation-for="Naziv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Opis" class="control-label"></label>
+                <input asp-for="Opis" class="form-control" />
+                <span asp-validation-for="Opis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InvertarniBroj" class="control-label"></label>
+                <input asp-for="InvertarniBroj" class="form-control" />
+                <span asp-validation-for="InvertarniBroj" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NabavnaCijena" class="control-label"></label>
+                <input asp-for="NabavnaCijena" class="form-control" />
+                <span asp-validation-for="NabavnaCijena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrenutnaCijena" class="control-label"></label>
+                <input asp-for="TrenutnaCijena" class="form-control" />
+                <span asp-validation-for="TrenutnaCijena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VrijemeAmortizacije" class="control-label"></label>
+                <input asp-for="VrijemeAmortizacije" class="form-control" />
+                <span asp-validation-for="VrijemeAmortizacije" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kolicina" class="control-label"></label>
+                <input asp-for="Kolicina" class="form-control" />
+                <span asp-validation-for="Kolicina" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SkladisteId" class="control-label"></label>
+                <select asp-for="SkladisteId" class="form-control" asp-items="ViewBag.SkladisteId"></select>
+                <span asp-validation-for="SkladisteId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DostupnoOd" class="control-label"></label>
+                <input asp-for="DostupnoOd" class="form-control" />
+                <span asp-validation-for="DostupnoOd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DostupnoDo" class="control-label"></label>
+                <input asp-for="DostupnoDo" class="form-control" />
+                <span asp-validation-for="DostupnoDo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReferentiBrojId" class="control-label"></label>
+                <select asp-for="ReferentiBrojId" class="form-control" asp-items="ViewBag.ReferentiBrojId"></select>
+                <span asp-validation-for="ReferentiBrojId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

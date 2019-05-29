@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Organi.Za.Organizaciju.Data.DodijeljenaOprema>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Oprema za posao: <strong>@ViewData["NazivPosla"]</strong></h3>
+
+<p>
+    <a asp-action="Create" asp-route-id="@ViewData["PosaoId"]">Dodaj novu opremu</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Oprema)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrojOpreme)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Posao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Oprema.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrojOpreme)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Posao.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

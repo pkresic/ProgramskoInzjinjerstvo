@@ -1,0 +1,44 @@
+﻿@model Organi.Za.Organizaciju.Data.PotrebnoZanimanje
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>PotrebnoZanimanje</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="UslugaId" class="control-label"></label>
+                <select asp-for="UslugaId" class="form-control" asp-items="ViewBag.UslugaId"></select>
+                <span asp-validation-for="UslugaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ZanimanjeId" class="control-label"></label>
+                <select asp-for="ZanimanjeId" class="form-control" asp-items="ViewBag.ZanimanjeId"></select>
+                <span asp-validation-for="ZanimanjeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Broj" class="control-label"></label>
+                <input asp-for="Broj" class="form-control" />
+                <span asp-validation-for="Broj" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-route-id="@Model.UslugaId" asp-action="Index">Nazad na zanimanja</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

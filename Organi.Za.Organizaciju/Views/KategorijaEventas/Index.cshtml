@@ -1,0 +1,87 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<Organi.Za.Organizaciju.Data.KategorijaEventa>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Kategorije događaja</h1>
+
+<p>
+    <a asp-action="Create">Dodaj novu</a>
+</p>
+
+<div class="form-group">
+    <form method="get" class="form-inline">
+        <input name="filter" id="search" class="form-control" placeholder="Počnite tipkati" value="@Model.RouteValue["Filter"]" />
+        <button type="submit" style="margin-left: 30px" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+        </button>
+        <a style="margin-left: 30px" asp-action="Print" class="btn btn-success">Generiraj PDF</a>
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Naziv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opis)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Opis)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Uredi</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalji</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Izbriši</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav aria-label="KategorijeEvenata">
+    @await Component.InvokeAsync("Pager", new { pagingList = Model })
+</nav>
+@{
+    var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+}
+
+@section Scripts
+    {
+    <script>
+        $(document).ready(function() {
+            $("#search").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '@Url.Action("Search", @controllerName)',
+                        dataType: "json",
+                        data: { search: $("#search").val() },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item };
+                            }));
+                        },
+                        error: function (xhr, status, error) {
+                            alert("Error");
+                        }
+                    });
+                }
+            });
+        })
+    </script>
+}

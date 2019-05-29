@@ -1,0 +1,130 @@
+﻿@model Organi.Za.Organizaciju.ViewModels.UslugeViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Popis usluga</h1>
+
+<p>
+    <a asp-action="Create">Dodaj novu</a>
+</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                Naziv
+            </th>
+            <th>
+                Cijena
+            </th>
+            <th>
+                Opis
+            </th>
+            <th>
+                Kategorija
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Usluge)
+        {
+            string selectedRow = "";
+            if (item.Id == (int?)ViewData["Id"])
+            {
+                selectedRow = "table-active";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cijena)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Opis)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kategorija.Naziv)
+                </td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.Id">Odaberi</a>|
+                    <a asp-action="Index" asp-route-id="@item.Id" asp-controller="PotrebnoZanimanja">Zanimanja</a>|
+                    <a asp-action="Index" asp-route-id="@item.Id" asp-controller="PotrebnaOprema">Oprema</a>|
+                    <a asp-action="Edit" asp-route-id="@item.Id">Uredi</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalji</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Izbrisi</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@if (Model.PotrebnaZanimanja != null)
+{
+    <br />
+    <br />
+    <hr />
+
+    <h3>Potrebna zanimanja</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Naziv</th>
+            <th>Opis</th>
+        </tr>
+
+        @foreach (var item in Model.PotrebnaZanimanja)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Naziv
+                </td>
+                <td>
+                    @item.Opis
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+
+
+@if (Model.PotrebnaOprema != null)
+{
+    <br />
+    <br />
+    <hr />
+
+    <h3>Potrebna oprema</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Naziv</th>
+            <th>Opis</th>
+        </tr>
+
+        @foreach (var item in Model.PotrebnaOprema)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Naziv
+                </td>
+                <td>
+                    @item.Opis
+                </td>
+            </tr>
+        }
+
+    </table>
+}
